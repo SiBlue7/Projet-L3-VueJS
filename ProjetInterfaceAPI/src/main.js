@@ -5,12 +5,12 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 
 import './assets/main.css'
-import IndexComponent from "@/components/IndexComponent.vue";
+import PageAccueil from "@/components/PageAccueil.vue";
 
 
 
 const routes = [
-    {path: '/', name:'homepage', component: IndexComponent},
+    {path: '/', name:'homepage', component: PageAccueil},
 ];
 
 const router = createRouter({

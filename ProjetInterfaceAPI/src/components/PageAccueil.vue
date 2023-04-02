@@ -8,7 +8,7 @@ export default {
     return {
       baseURL: 'https://api.mangadex.org',
       title: '',
-      cover_art: '',
+      cover_art: [],
       search_query: '',
       mangaList: [],
     }
@@ -38,6 +38,7 @@ export default {
             console.log(result.data.data);
             for (i = 0; i < 10; i++) {
               this.mangaList = result.data.data[i];
+              // this.mangaList.push(result.data.data[i]);
               console.log("Manga : " + i)
               console.log(this.mangaList)
               this.getMangaCover();
@@ -61,11 +62,26 @@ export default {
             console.log("Affichage des infos manga :");
             console.log(result.data.data);
             console.log("---------------------------");
-            this.cover_art = result.data.data.relationships[2].attributes.fileName;
-            console.log("Covert art :");
-            console.log(this.cover_art);
+            let i = 0;
+
+            console.log("Type livre : " + result.data.data.type)
+
+
+            while (result.data.data.relationships[i].type !== 'cover_art') {
+
+              console.log("I dans la boucle : " + i);
+              i += 1;
+            }
+
+            console.log("Type relation : "+ result.data.data.relationships[i].type)
+            this.cover_art = result.data.data.relationships[i].attributes.fileName
+            console.log("Manga id : " + result.data.data.id);
+            console.log("Covert art : " + this.cover_art);
+            console.log("https://uploads.mangadex.org/covers/" + result.data.data.id + "/" + this.cover_art)
             console.log("---------------------------");
             this.mangaList = result.data.data;
+            console.log("Taille de mangaList : " + this.mangaList);
+            console.log("Taille de mangaList : " + this.mangaList.length);
           }
       );
     }
@@ -90,10 +106,13 @@ export default {
     </header>
 
     <main>
+<!--      <div v-for="manga in mangaList">-->
+<!--        <li>{{ manga.name }}</li>-->
+<!--      </div>-->
       <div class="cards" v-if="mangaList.length > 0">
         <Card
             v-for="manga in mangaList"
-            :key="manga.data.data.id"
+            :key="manga.id"
             :manga="manga" />
       </div>
       <div class="no-results" v-else>

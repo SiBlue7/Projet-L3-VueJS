@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import { ref } from "vue";
 import Card from "@/components/Card.vue";
 
 export default {
@@ -10,7 +11,7 @@ export default {
       title: '',
       cover_art: [],
       search_query: '',
-      mangaList: [],
+      mangaList: ref([]),
     }
   },
   mounted() {
@@ -79,8 +80,8 @@ export default {
             console.log("Covert art : " + this.cover_art);
             console.log("https://uploads.mangadex.org/covers/" + result.data.data.id + "/" + this.cover_art)
             console.log("---------------------------");
-            this.mangaList = result.data.data;
             console.log("Taille de mangaList : " + this.mangaList);
+            console.log("Taille de mangaList : " + result.data.data.id);
             console.log("Taille de mangaList : " + this.mangaList.length);
           }
       );
@@ -106,9 +107,14 @@ export default {
     </header>
 
     <main>
-<!--      <div v-for="manga in mangaList">-->
-<!--        <li>{{ manga.name }}</li>-->
-<!--      </div>-->
+      <div class="cards">
+        <Card
+            v-for="manga in mangaList"
+            :key="manga.id"
+            :manga="manga" />
+      </div>
+
+      <!--
       <div class="cards" v-if="mangaList.length > 0">
         <Card
             v-for="manga in mangaList"
@@ -118,6 +124,7 @@ export default {
       <div class="no-results" v-else>
         <h3>Sorry, we have no results...</h3>
       </div>
+      -->
     </main>
 
   </div>

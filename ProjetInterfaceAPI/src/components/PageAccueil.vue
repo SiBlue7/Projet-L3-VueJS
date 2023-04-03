@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import { ref } from "vue";
 import Card from "@/components/Card.vue";
 
 export default {
@@ -10,7 +11,7 @@ export default {
       title: '',
       cover_art: [],
       search_query: '',
-      mangaList: [],
+      mangaList: ref([]),
     }
   },
   mounted() {
@@ -133,6 +134,7 @@ export default {
       <div class="no-results" v-else>
         <h3>Sorry, we have no results...</h3>
       </div>
+      -->
     </main>
 
   </div>

@@ -19,11 +19,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
 .card {
   flex: 1 1 33%;
   width: 33%;
   max-width: 33%;
-  padding: 0px 8px;
+  padding: 0 8px;
   margin-bottom: 16px;
 }
   .card img {

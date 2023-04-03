@@ -36,23 +36,24 @@ export default {
       }).then(
           (result) => {
             console.log(result.data.data);
+            this.mangaList = [];
             for (i = 0; i < 10; i++) {
-              this.mangaList = result.data.data[i];
-              // this.mangaList.push(result.data.data[i]);
+              //this.mangaList = result.data.data[i];
+               this.mangaList.push(result.data.data[i]);
               console.log("Manga : " + i)
               console.log(this.mangaList)
-              this.getMangaCover();
+              this.getMangaCover(i);
             }
 
           }
       );
     },
 
-    async getMangaCover() {
-      console.log(this.baseURL+'/manga/'+ this.mangaList.id + '&includes[]=cover_art');
+    async getMangaCover(j) {
+      console.log(this.baseURL+'/manga/'+ this.mangaList[j].id + '&includes[]=cover_art');
       const resp = await axios({
         method: 'GET',
-        url: this.baseURL+'/manga/'+ this.mangaList.id + '?includes[]=cover_art',
+        url: this.baseURL+'/manga/'+ this.mangaList[j].id + '?includes[]=cover_art',
         params: {
           // search_query: this.search_query
           title: this.title
@@ -74,13 +75,16 @@ export default {
             }
 
             console.log("Type relation : "+ result.data.data.relationships[i].type)
-            this.cover_art = result.data.data.relationships[i].attributes.fileName
+            this.mangaList[j].cover_art = result.data.data.relationships[i].attributes.fileName;
             console.log("Manga id : " + result.data.data.id);
             console.log("Covert art : " + this.cover_art);
             console.log("https://uploads.mangadex.org/covers/" + result.data.data.id + "/" + this.cover_art)
             console.log("---------------------------");
-            this.mangaList = result.data.data;
-            console.log("Taille de mangaList : " + this.mangaList);
+            this.mangaList[j].relations = result.data.data;
+
+            console.log("Contenu de mangaList");
+            console.log(this.mangaList);
+            console.log(this.cover_art);
             console.log("Taille de mangaList : " + this.mangaList.length);
           }
       );
@@ -107,12 +111,23 @@ export default {
 
     <main>
 <!--      <div v-for="manga in mangaList">-->
-<!--        <li>{{ manga.name }}</li>-->
+<!--        <div v-if="manga !== undefined">-->
+<!--          <h3>{{manga.attributes.title.en}}</h3>-->
+<!--          <img-->
+<!--              :src="'https://uploads.mangadex.org/covers/'+manga.id+'/'+manga.cover_art"-->
+<!--              :alt="manga.attributes.title.en + ' Poster'"-->
+<!--          />-->
+<!--        </div>-->
+<!--        -->
+
+
 <!--      </div>-->
+<!--      <Card-->
+<!--          v-for="manga in mangaList"-->
+<!--          :manga="manga" />-->
       <div class="cards" v-if="mangaList.length > 0">
         <Card
             v-for="manga in mangaList"
-            :key="manga.id"
             :manga="manga" />
       </div>
       <div class="no-results" v-else>
@@ -124,5 +139,8 @@ export default {
 </template>
 
 <style>
-
+img {
+  max-width: 150px;
+  max-height: 250px;
+}
 </style>

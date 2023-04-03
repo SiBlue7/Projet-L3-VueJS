@@ -111,21 +111,6 @@ export default {
     </header>
 
     <main>
-<!--      <div v-for="manga in mangaList">-->
-<!--        <div v-if="manga !== undefined">-->
-<!--          <h3>{{manga.attributes.title.en}}</h3>-->
-<!--          <img-->
-<!--              :src="'https://uploads.mangadex.org/covers/'+manga.id+'/'+manga.cover_art"-->
-<!--              :alt="manga.attributes.title.en + ' Poster'"-->
-<!--          />-->
-<!--        </div>-->
-<!--        -->
-
-
-<!--      </div>-->
-<!--      <Card-->
-<!--          v-for="manga in mangaList"-->
-<!--          :manga="manga" />-->
       <div class="cards" v-if="mangaList.length > 0">
         <Card
             v-for="manga in mangaList"
@@ -134,7 +119,7 @@ export default {
       <div class="no-results" v-else>
         <h3>Sorry, we have no results...</h3>
       </div>
-      -->
+
     </main>
 
   </div>

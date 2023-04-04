@@ -6,11 +6,23 @@ import VueAxios from "vue-axios";
 
 import './assets/main.css'
 import PageAccueil from "@/components/PageAccueil.vue";
+import PageManga from "@/components/PageManga.vue";
 
 
 
 const routes = [
     {path: '/', name:'homepage', component: PageAccueil},
+    {path: '/manga/:id', name:'PageManga', component: PageManga, props: true, param: true},
+    // {
+    //     path: '/manga/:id',
+    //     name: 'PageManga',
+    //     component: PageManga,
+    //     props: (route) => ({
+    //         id: route.params.id,
+    //         mangaCover_art: route.params.mangaCover_art,
+    //         mangaTitre: route.params.mangaTitre
+    //     })
+    // }
 ];
 
 const router = createRouter({

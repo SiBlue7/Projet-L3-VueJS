@@ -1,6 +1,5 @@
 <script>
 import axios from "axios";
-import { ref } from "vue";
 import Card from "@/components/Card.vue";
 
 export default {
@@ -16,11 +15,6 @@ export default {
   },
   mounted() {
     this.getManga();
-    //this.getMangaCover();
-  },
-
-  setup() {
-
   },
 
   methods:{
@@ -31,18 +25,13 @@ export default {
         method: 'GET',
         url: this.baseURL+'/manga',
         params: {
-          // search_query: this.search_query
           title: this.title
         }
       }).then(
           (result) => {
-            //console.log(result.data.data);
             this.mangaList = [];
             for (i = 0; i < 10; i++) {
-              //this.mangaList = result.data.data[i];
                this.mangaList.push(result.data.data[i]);
-              //console.log("Manga : " + i)
-              //console.log(this.mangaList)
               this.getMangaCover(i);
             }
 
@@ -51,42 +40,20 @@ export default {
     },
 
     async getMangaCover(j) {
-      //console.log(this.baseURL+'/manga/'+ this.mangaList[j].id + '&includes[]=cover_art');
       const resp = await axios({
         method: 'GET',
         url: this.baseURL+'/manga/'+ this.mangaList[j].id + '?includes[]=cover_art',
         params: {
-          // search_query: this.search_query
           title: this.title
         }
       }).then(
           (result) => {
-            //console.log("Affichage des infos manga :");
-            //console.log(result.data.data);
-            //console.log("---------------------------");
             let i = 0;
-
-            //console.log("Type livre : " + result.data.data.type)
-
-
             while (result.data.data.relationships[i].type !== 'cover_art') {
-
-              //console.log("I dans la boucle : " + i);
               i += 1;
             }
-
-            //console.log("Type relation : "+ result.data.data.relationships[i].type)
             this.mangaList[j].cover_art = result.data.data.relationships[i].attributes.fileName;
-            // console.log("Manga id : " + result.data.data.id);
-            //console.log("Covert art : " + this.cover_art);
-            //console.log("https://uploads.mangadex.org/covers/" + result.data.data.id + "/" + this.cover_art)
-            //console.log("---------------------------");
             this.mangaList[j].relations = result.data.data;
-
-            //console.log("Contenu de mangaList");
-            // console.log(this.mangaList);
-            //console.log(this.cover_art);
-            //console.log("Taille de mangaList : " + this.mangaList.length);
           }
       );
     }
@@ -125,8 +92,4 @@ export default {
 </template>
 
 <style>
-img {
-  max-width: 60%;
-  max-height: 35%;
-}
 </style>

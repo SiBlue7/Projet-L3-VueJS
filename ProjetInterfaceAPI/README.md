@@ -1,29 +1,25 @@
-# ProjetInterfaceAPI
+# Projet VueJS API
+#### At 16/05/2023
+#### Made by Enzo Chevalier
+#### Student in L3 SDN
 
-This template should help get you started developing with Vue 3 in Vite.
+## API 
 
-## Recommended IDE Setup
+[All Api](https://free-apis.github.io/#/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Made with the API :
+[API MangaDex](https://api.mangadex.org/docs/)
 
-## Customize configuration
+## Principe du site :
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Site permettant de rechercher un manga par son titre contenu sur le 
+site [Site MangaDex](https://mangadex.org/), et de cliquer sur un des mangas pour y retrouver 
+quelques informations.
 
-## Project Setup
+## Fonctionnalités futur ?
 
-```sh
-npm install
-```
+- Mettre en place un système de login.
 
-### Compile and Hot-Reload for Development
+- Permettre à l'utilisateur de chercher avec un filtrage selon certains tags.
 
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+- Permettre à l'utilisateur de lire les chapitres directement sur le site, voir même de les télécharger.

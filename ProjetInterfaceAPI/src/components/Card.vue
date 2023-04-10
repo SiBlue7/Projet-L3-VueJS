@@ -1,7 +1,6 @@
 <template>
   <div class="card" v-if="manga !== undefined">
     <div>
-<!--      <router-link :to="'/manga/' + manga.id">-->
       <router-link :to="{name: 'PageManga', params: {id: manga.id}}">
       <img
             :src="'https://uploads.mangadex.org/covers/'+manga.id+'/'+manga.cover_art"
@@ -15,16 +14,8 @@
 </template>
 
 <script>
-import PageManga from "@/components/PageManga.vue";
 export default {
-  components: {PageManga},
-
-  // props: ['manga'],
-  props: {
-    coverManga: String,
-    manga: Object
-  },
-
+  props: ['manga']
 }
 </script>
 
@@ -39,7 +30,7 @@ export default {
 }
   .card img {
     width: 100%;
-    height: 300px;
+    height: 550px;
     object-fit: cover;
     border-radius: 16px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);

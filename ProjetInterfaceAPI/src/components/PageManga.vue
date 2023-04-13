@@ -4,7 +4,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      // url de base pour la requete pour l'API
+      // url de base pour la requete pour l'API et initialisation des différentes variables
       baseURL: 'https://api.mangadex.org',
       mangaInfo: {},
       mangaInfo2: [{
@@ -23,10 +23,14 @@ export default {
   },
 
   methods: {
+    // création de la méthode pour envoyer les requetes
     async getMangaInfo() {
+      //url pour récupérer le manga et la cover
       let url = this.baseURL + `/manga/${this.id}` + '?includes[]=cover_art';
+      //url pour récupérer les chapitres
       let url_chapter = this.baseURL + `/manga/${this.id}` + '/feed';
 
+      //récupération des réponses liées à la première url
       axios.get(url)
       .then(response => {
         this.mangaInfo = response.data.data;
@@ -41,6 +45,8 @@ export default {
         }
         this.mangaInfo.cover_art = response.data.data.relationships[i].attributes.fileName;
       })
+
+      //récupération des réponses liées à la deuxième url
       axios.get(url_chapter)
           .then(result => {
             this.mangaChapter = result.data.data
@@ -65,12 +71,12 @@ export default {
       />
     </div>
     <div class="card_manga_droite">
-      <p>{{mangaInfo2.titre}}</p>
+      <h1>{{mangaInfo2.titre}}</h1>
       <p>{{mangaInfo2.description}}</p>
       <div class="chapter_container">
         <div class="affichage_chapter" v-for="chapitre in mangaChapter">
           <li v-if="chapitre.attributes.translatedLanguage === 'en'">
-            <a :href="'https://mangadex.org/chapter/' + chapitre.id">Go lire le chapitre !</a>
+            <a :href="'https://mangadex.org/chapter/' + chapitre.id">Go lire le chapitre ! {{chapitre.attributes.title}}</a>
             <div class="affichage_chapter_number">
               <p>{{chapitre.attributes.chapter}}</p>
             </div>
@@ -102,15 +108,24 @@ export default {
 }
 
 .card_manga_gauche {
-  width: 33%;
+  width: 45%;
   height: 650px;
   display: flex;
   justify-content: center;
-  border: 1px solid #8d8585;
 }
 
 .card_manga_droite {
   width: 77%;
+}
+
+.card_manga_droite h1 {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+}
+
+.card_manga_droite p {
+  margin: 15px;
 }
 
 .chapter_container {
@@ -153,6 +168,14 @@ export default {
 .page_cover_manga {
   width: 80%;
   height: auto;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: .4s;
+}
+
+.page_cover_manga:hover {
+  transform: scale(1.05);
 }
 
 </style>

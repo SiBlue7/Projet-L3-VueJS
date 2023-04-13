@@ -6,6 +6,7 @@ export default {
   components: {Card},
   data() {
     return {
+      //url de base pour la requete pour l'API et initialisation des différentes variables
       baseURL: 'https://api.mangadex.org',
       title: '',
       cover_art: [],
@@ -18,6 +19,7 @@ export default {
   },
 
   methods:{
+    //méthode pour récupérer les mangas en fonction du titre que l'utilisateur demande
     async getManga() {
       let i;
 
@@ -39,6 +41,7 @@ export default {
       );
     },
 
+    //méthode pour récupérer la cover de chaque manga à afficher
     async getMangaCover(j) {
       const resp = await axios({
         method: 'GET',
